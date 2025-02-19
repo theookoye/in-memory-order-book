@@ -35,7 +35,10 @@ class MainVerticle : AbstractVerticle() {
             }
             val config = configResult.result()
             val apiKey = config.getJsonObject("security")?.getJsonObject("api")?.getString("key")
-                ?: return@loadConfig startPromise.fail("API key not set")
+            if (apiKey.isNullOrEmpty()) {
+                return@loadConfig startPromise.fail("API key not set")
+            }
+            
             val port = config.getJsonObject("server")?.getInteger("port") ?: 8080
             val router = setupRouter(injector, apiKey)
             
