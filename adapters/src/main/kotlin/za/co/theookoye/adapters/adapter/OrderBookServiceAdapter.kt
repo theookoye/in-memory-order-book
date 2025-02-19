@@ -60,7 +60,7 @@ class OrderBookServiceAdapter @Inject constructor(
             } ?: break // No more orders to match
             val latestOppositeOrder = orderRepository.findRequired(id = bestOppositeOrder.id)
             
-            if (latestOppositeOrder.status != OrderStatus.OPEN) {
+            if (latestOppositeOrder.status == OrderStatus.FILLED) {
                 log.info { "Skipping match with $takerSide order with id: ${latestOppositeOrder.id}, status: ${latestOppositeOrder.status}" }
                 continue
             }
