@@ -58,13 +58,13 @@ The application will be available at http://localhost:8080.
 
 #### **Postman Collection**
 
-A Postman collection with sample requests is available in the
-📂 `examples/` folder.
+A Postman collection with sample requests is available at:
+📂 `examples/`.
 
 To use it:
 
 Open Postman. \
-Import examples/api.postman_collection.json. \
+Import `examples/api.postman_collection.json`. \
 Set the API key in the request headers.
 
 ### **Assumptions & Limitations**
