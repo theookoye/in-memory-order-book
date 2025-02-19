@@ -1,0 +1,168 @@
+{
+  "info": {
+    "_postman_id": "2553fdf8-14ab-4b6f-befd-86d6874527a5",
+    "name": "In-memory Order Book API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "6196459"
+  },
+  "item": [
+    {
+      "name": "Get Order Book",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Get Recent Trades",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Get Recent Orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/v1/orders?limit=50&sides=BUY,SELL&currencyPairs=BTCUSD,BTCZAR&rangeStart=2025-01-01&rangeEnd=2025-03-31",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "orders"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "50"
+            },
+            {
+              "key": "sides",
+              "value": "BUY,SELL"
+            },
+            {
+              "key": "currencyPairs",
+              "value": "BTCUSD,BTCZAR"
+            },
+            {
+              "key": "rangeStart",
+              "value": "2025-01-01"
+            },
+            {
+              "key": "rangeEnd",
+              "value": "2025-03-31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Submit Order Limit",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": \"99\",\n  \"quantity\": \"7\",\n  \"side\": \"SELL\",\n  \"currencyPair\": \"BTCZAR\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/v1/orders/limit",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "orders",
+            "limit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Order By Id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": \"100\",\n  \"quantity\": \"10\",\n  \"side\": \"BUY\",\n  \"currencyPair\": \"BTCZAR\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/v1/orders/690e28c6-d122-4f90-8e29-85a8690177fa",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "orders",
+            "690e28c6-d122-4f90-8e29-85a8690177fa"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "X-API-KEY",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

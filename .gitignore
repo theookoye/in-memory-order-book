@@ -1,0 +1,14 @@
+# Log files
+*.log
+
+# Package files
+*.jar
+
+# Maven
+target/
+dist/
+dependency-reduced-pom.xml
+
+# JetBrains IDE
+.idea/
+*.iml
