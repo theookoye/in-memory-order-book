@@ -51,7 +51,7 @@ class OrderBookServiceAdapter @Inject constructor(
         val trades = mutableListOf<Trade>()
         var latestOrder = orderRepository.findRequired(id = orderId)
         var remainingQuantity = latestOrder.quantity
-        
+        val processedOrderIds = mutableSetOf<String>()
         
         while (remainingQuantity > BigDecimal.ZERO) {
             val bestOppositeOrder = when (takerSide) {
@@ -76,12 +76,19 @@ class OrderBookServiceAdapter @Inject constructor(
                 trades = trades
             )
             remainingQuantity -= tradeQuantity
+            
+            processedOrderIds.add(latestOppositeOrder.id)
+            
+            if (processedOrderIds.size >= when (takerSide) {
+                    OrderSide.BUY -> orderRepository.findAsks().size
+                    OrderSide.SELL -> orderRepository.findBids().size
+                }) {
+                break
+            }
         }
         
         latestOrder = orderRepository.findRequired(id = orderId)
-        if (latestOrder.status == OrderStatus.OPEN) {
-            updateOrderStatus(orderId, remainingQuantity)
-        }
+        updateOrderStatus(orderId, latestOrder.quantity - remainingQuantity)
         
         return trades
     }
@@ -105,8 +112,7 @@ class OrderBookServiceAdapter @Inject constructor(
             tradedAt = Instant.now(clock),
         )
         trades.add(trade)
-        
-        updateOrderStatus(order.id, tradeQuantity)
+        //        updateOrderStatus(order.id, tradeQuantity)
         updateOrderStatus(oppositeOrder.id, tradeQuantity)
     }
     
